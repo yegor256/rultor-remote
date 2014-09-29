@@ -39,8 +39,8 @@ module Rultor
   def self.log
     unless @log
       @log = Logger.new(STDOUT)
-      @log.formatter = proc { |severity, _, _, msg|
-        puts "#{severity}: #{msg.dump}"
+      @log.formatter = proc { |_, _, _, msg|
+        puts "#{msg.dump}"
       }
     end
     @log

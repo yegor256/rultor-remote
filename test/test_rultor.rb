@@ -39,6 +39,6 @@ require 'slop'
 # License:: BSD
 class TestRultor < Minitest::Test
   def test_basic
-    # later
+    Rultor.log.info 'log works'
   end
 end

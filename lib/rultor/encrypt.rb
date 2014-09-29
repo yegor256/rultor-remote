@@ -28,29 +28,34 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 
+require 'English'
+
 # Rultor main module.
 # Author:: Yegor Bugayenko (yegor@teamed.io)
 # Copyright:: Copyright (c) 2014 Yegor Bugayenko
 # License:: BSD
 module Rultor
+  # Encrypting command
   class Encrypt
     def initialize(name, file)
       @name = name
       @file = file
       @dest = "#{@file}.asc"
     end
+
     def run
-      %x{
+      system(
+        "
         set -x
         set -e
         gpg --keyserver hkp://pool.sks-keyservers.net \
           --verbose --recv-keys 9AF0FA4C
-        gpg --trust-model always --output "#{@dest}" \
-          --batch --armor --encrypt --verbose --recipient 9AF0FA4C "#{@file}"
-      }
-      if $?.exitstatus != 0
-        raise 'Failed to PGP encrypt'
-      end
+        gpg --trust-model always --output '#{@dest}' \
+          --batch --armor --encrypt --verbose --recipient 9AF0FA4C '#{@file}'
+        "
+      )
+      fail 'Failed to PGP encrypt' unless $CHILD_STATUS.exitstatus == 0
+      Rultor.log.info "#{@file} encrypted"
     end
   end
 end

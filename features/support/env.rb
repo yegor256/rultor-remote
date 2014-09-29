@@ -31,4 +31,5 @@
 require 'simplecov'
 require 'rultor'
 
+Rultor.log.info 'logging to stdout'
 Rultor.log = Logger.new(STDOUT)
