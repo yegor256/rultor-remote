@@ -34,13 +34,18 @@ STDOUT.sync = true
 require 'rultor'
 require 'slop'
 require 'rultor/version'
+require 'rultor/encrypt'
 
-opts = Slop.parse(ARGV, strict: true, help: true) do
+Slop.parse(ARGV, strict: true, help: true) do
   banner "Usage (#{Rultor::VERSION}): rultor command [options]"
-end
-
-if opts.help?
-  puts opts
-else
-  puts 'not implemented yet'
+  on :v, 'Print the version' do
+    puts Rultor::VERSION
+  end
+  command 'encrypt' do
+    description 'Encrypt a file'
+    on :p=, :project, 'Project name'
+    run do |opts, args|
+      Rultor::Encrypt.new(opts[:project], args.first).run
+    end
+  end
 end

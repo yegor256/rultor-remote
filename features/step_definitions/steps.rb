@@ -28,37 +28,51 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rultor/version'
+require 'rultor'
+require 'tmpdir'
+require 'English'
 
-Gem::Specification.new do |s|
-  s.specification_version = 2 if s.respond_to? :specification_version=
-  if s.respond_to? :required_rubygems_version=
-    s.required_rubygems_version = Gem::Requirement.new('>= 0')
+Before do
+  @cwd = Dir.pwd
+  @dir = Dir.mktmpdir('test')
+  FileUtils.mkdir_p(@dir) unless File.exist?(@dir)
+  Dir.chdir(@dir)
+end
+
+After do
+  Dir.chdir(@cwd)
+  FileUtils.rm_rf(@dir) if File.exist?(@dir)
+end
+
+Given(/^I have a "([^"]*)" file with content:$/) do |file, text|
+  FileUtils.mkdir_p(File.dirname(file)) unless File.exist?(file)
+  File.open(file, 'w') do |f|
+    f.write(text)
   end
-  s.rubygems_version = '2.2.2'
-  s.required_ruby_version = '>= 1.9.3'
-  s.name = 'rultor'
-  s.version = Rultor::VERSION
-  s.license = 'BSD'
-  s.summary = 'Rultor.com Remote Control'
-  s.description = 'Command line remote control of www.rultor.com'
-  s.authors = ['Yegor Bugayenko']
-  s.email = 'yegor@teamed.io'
-  s.homepage = 'http://github.com/yegor256/rultor-remote'
-  s.files = `git ls-files`.split($RS)
-  s.executables = s.files.grep(/^bin\//) { |f| File.basename(f) }
-  s.test_files = s.files.grep(/^(test|spec|features)\//)
-  s.rdoc_options = ['--charset=UTF-8']
-  s.extra_rdoc_files = %w(README.md LICENSE.txt)
-  s.add_runtime_dependency 'rake', '~> 10.1'
-  s.add_runtime_dependency 'slop', '~> 3.6'
-  s.add_development_dependency 'coveralls', '~> 0.7', '>= 0.7.0'
-  s.add_development_dependency 'rdoc', '~> 3.11'
-  s.add_development_dependency 'cucumber', '1.3.11'
-  s.add_development_dependency 'minitest', '~> 5.4', '>= 5.4.0'
-  s.add_development_dependency 'rubocop', '~> 0.24', '>= 0.24.1'
-  s.add_development_dependency 'rubocop-rspec', '~> 1.1', '>= 1.1.0'
-  s.add_development_dependency 'rspec-rails', '~> 2.13'
+end
+
+When(/^I run bin\/rultor with "([^"]*)"$/) do |arg|
+  home = File.join(File.dirname(__FILE__), '../..')
+  @stdout = `ruby -I#{home}/lib #{home}/bin/rultor #{arg} 2>&1`
+  @exitstatus = $CHILD_STATUS.exitstatus
+end
+
+Then(/^Stdout contains "([^"]*)"$/) do |txt|
+  unless @stdout.include?(txt)
+    fail "STDOUT doesn't contain '#{txt}':\n#{@stdout}"
+  end
+end
+
+Then(/^Exit code is zero$/) do
+  fail "Non-zero exit code #{@exitstatus}:\n#{@stdout}" unless @exitstatus == 0
+end
+
+Then(/^Exit code is not zero$/) do
+  fail "Zero exit code:\n#{@stdout}" if @exitstatus == 0
+end
+
+When(/^I run bash with$/) do |text|
+  FileUtils.copy_entry(@cwd, File.join(@dir, 'rultor'))
+  @stdout = `#{text}`
+  @exitstatus = $CHILD_STATUS.exitstatus
 end
