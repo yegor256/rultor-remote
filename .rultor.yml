@@ -1,0 +1,16 @@
+assets:
+  rubygems.yml: "yegor256/home#assets/rubygems.yml"
+  s3cfg: "yegor256/home#assets/s3cfg"
+
+release:
+  script: |
+    sudo bundle install
+    rake
+    rm -rf *.gem
+    sed -i "s/1\.0\.snapshot/${tag}/g" lib/rultor/version.rb
+    gem build rultor.gemspec
+    chmod 0600 ../rubygems.yml
+    gem push *.gem --config-file ../rubygems.yml
+    gem install pdd
+    pdd --source=$(pwd) --verbose --file=rultor-remote.xml
+    s3cmd --no-progress put rultor-remote.xml --config=../s3cfg s3://pdd.teamed.io/rltor-remote.xml
