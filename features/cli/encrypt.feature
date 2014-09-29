@@ -9,4 +9,4 @@ Feature: Command Line Processing
     """
     When I run bin/rultor with "encrypt -p test/test credentials"
     Then Exit code is zero
-    And Stdout contains "encrypted credentials into credentials.asc"
+    And Stdout contains "credentials.asc"

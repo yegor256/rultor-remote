@@ -28,29 +28,23 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Rultor main module.
+require 'minitest/autorun'
+require 'rultor'
+require 'rultor/encrypt'
+require 'tmpdir'
+
+# Rultor encryption.
 # Author:: Yegor Bugayenko (yegor@teamed.io)
 # Copyright:: Copyright (c) 2014 Yegor Bugayenko
 # License:: BSD
-module Rultor
-  class Encrypt
-    def initialize(name, file)
-      @name = name
-      @file = file
-      @dest = "#{@file}.asc"
-    end
-    def run
-      %x{
-        set -x
-        set -e
-        gpg --keyserver hkp://pool.sks-keyservers.net \
-          --verbose --recv-keys 9AF0FA4C
-        gpg --trust-model always --output "#{@dest}" \
-          --batch --armor --encrypt --verbose --recipient 9AF0FA4C "#{@file}"
-      }
-      if $?.exitstatus != 0
-        raise 'Failed to PGP encrypt'
-      end
+class TestEncrypt < Minitest::Test
+  def test_basic_encryption
+    Dir.mktmpdir 'test' do |dir|
+      file = File.join(dir, 'secret.txt')
+      File.write(file, 'hello, world!')
+      Rultor::Encrypt.new('test', file).run
+      asc = File.join(dir, 'secret.txt.asc')
+      assert_equal true, File.exist?(asc)
     end
   end
 end
