@@ -28,6 +28,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 
+require 'shellwords'
 require 'English'
 
 # Rultor main module.
@@ -50,8 +51,9 @@ module Rultor
         set -e
         gpg --keyserver hkp://pool.sks-keyservers.net \
           --verbose --recv-keys 9AF0FA4C
-        gpg --trust-model always --output '#{@dest}' \
-          --batch --armor --encrypt --verbose --recipient 9AF0FA4C '#{@file}'
+        gpg --trust-model always --output #{Shellwords::escape(@dest)} \
+          --batch --armor --encrypt --verbose \
+          --recipient 9AF0FA4C #{Shellwords::escape(@file)}
         "
       )
       fail 'Failed to PGP encrypt' unless $CHILD_STATUS.exitstatus == 0
