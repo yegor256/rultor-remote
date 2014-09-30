@@ -2,9 +2,12 @@ assets:
   rubygems.yml: "yegor256/home#assets/rubygems.yml"
   s3cfg: "yegor256/home#assets/s3cfg"
 
+install: |
+  sudo bundle install
+  sudo apt-get install -y bcrypt
+
 release:
   script: |
-    sudo bundle install
     rake
     rm -rf *.gem
     sed -i "s/1\.0\.snapshot/${tag}/g" lib/rultor/version.rb
