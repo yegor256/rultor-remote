@@ -10,11 +10,25 @@
 Install it first:
 
 ```bash
-gem install rultor
+$ gem install rultor
 ```
 
 Run it locally and read its output:
 
 ```bash
-rultor --help
+$ rultor --help
 ```
+
+To encrypt one file for Rultor:
+
+```bash
+$ rultor encrypt -p yegor256/rultor secret.txt
+```
+
+Where `yegor256/rultor` is the name of your Github project and `secret.txt`
+is the file you need to encrypt. Result will be saved into `secret.txt.asc`.
+Read more about Rultor [`decrypt`](http://doc.rultor.com/reference.html#decrypt)
+configuration option.
+
+Make sure you have [gpg](https://www.gnupg.org/documentation/manpage.html) and
+[bcrypt](http://bcrypt.sourceforge.net/) installed on your machine.
