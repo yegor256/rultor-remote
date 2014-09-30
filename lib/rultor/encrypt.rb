@@ -39,9 +39,9 @@ module Rultor
   # Encrypting command
   class Encrypt
     def initialize(name, file)
-      @name = name
-      @file = file
-      @dest = "#{@file}.asc"
+      @key = 'rultor-key:' + name
+      @dir = File.dirname(file)
+      @file = File.basename(file)
     end
 
     def run
@@ -49,11 +49,29 @@ module Rultor
         "
         set -x
         set -e
+        file=#{Shellwords.escape(@file)}
+        enc=#{Shellwords.escape(@file + '.enc')}
+        if [ -e \"${enc}\" ]; then
+          echo \"file already exists: ${enc}\"
+          exit -1
+        fi
+        asc=#{Shellwords.escape(@file + '.asc')}
+        if [ -e \"${asc}\" ]; then
+          echo \"file already exists: ${asc}\"
+          exit -1
+        fi
+        cd #{Shellwords.escape(@dir)}
+        echo #{Shellwords.escape(@key)} > \"${asc}\"
+        echo #{Shellwords.escape(@key)} >> \"${asc}\"
+        cat \"${asc}\" | bcrypt -r -o \"${file}\" > \"${enc}\"
+        rm \"${asc}\"
         gpg --keyserver hkp://pool.sks-keyservers.net \
           --verbose --recv-keys 9AF0FA4C
-        gpg --trust-model always --output #{Shellwords::escape(@dest)} \
+        gpg --trust-model always \
+          --output \"${asc}\" \
           --batch --armor --encrypt --verbose \
-          --recipient 9AF0FA4C #{Shellwords::escape(@file)}
+          --recipient 9AF0FA4C \"${enc}\"
+        rm -f \"${enc}\"
         "
       )
       fail 'Failed to PGP encrypt' unless $CHILD_STATUS.exitstatus == 0
