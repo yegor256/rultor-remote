@@ -61,10 +61,8 @@ module Rultor
           exit -1
         fi
         cd #{Shellwords.escape(@dir)}
-        echo #{Shellwords.escape(@key)} > \"${asc}\"
-        echo #{Shellwords.escape(@key)} >> \"${asc}\"
-        cat \"${asc}\" | bcrypt -r -o \"${file}\" > \"${enc}\"
-        rm \"${asc}\"
+        gpg --symmetric --armor --passphrase #{Shellwords.escape(@key)} \
+          -o \"${enc}\" \"${file}\"
         gpg --keyserver hkp://pool.sks-keyservers.net \
           --verbose --recv-keys 9AF0FA4C
         gpg --trust-model always \
