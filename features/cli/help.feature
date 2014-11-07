@@ -10,4 +10,4 @@ Feature: Help Banner
   Scenario: Help can be printed if project is not specified
     When I run bin/rultor with "encrypt"
     Then Exit code is not zero
-    And Stdout contains "Display this help message"
+    And Stdout contains "Missing required option(s)"

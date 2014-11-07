@@ -43,7 +43,7 @@ Slop.parse(ARGV, strict: true, help: true) do
   end
   command 'encrypt' do
     description 'Encrypt a file'
-    on :p=, :project, 'Project name'
+    on :p=, :project, 'Project name', required: true
     run do |opts, args|
       Rultor::Encrypt.new(opts[:project], args.first).run
     end
