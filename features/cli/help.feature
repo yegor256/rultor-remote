@@ -6,3 +6,8 @@ Feature: Help Banner
     When I run bin/rultor with "-h"
     Then Exit code is zero
     And Stdout contains "Display this help message"
+
+  Scenario: Help can be printed if project is not specified
+    When I run bin/rultor with "encrypt"
+    Then Exit code is not zero
+    And Stdout contains "Display this help message"
