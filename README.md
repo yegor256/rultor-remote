@@ -31,4 +31,5 @@ Read more about Rultor [`decrypt`](http://doc.rultor.com/reference.html#decrypt)
 configuration option.
 
 Make sure you have [gpg](https://www.gnupg.org/documentation/manpage.html) and
-[bcrypt](http://bcrypt.sourceforge.net/) installed on your machine.
+[bcrypt](http://bcrypt.sourceforge.net/) installed on your machine
+(only Unix or Mac OS at the moment).
