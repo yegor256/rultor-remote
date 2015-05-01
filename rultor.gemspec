@@ -48,8 +48,8 @@ Gem::Specification.new do |s|
   s.email = 'yegor@teamed.io'
   s.homepage = 'http://github.com/yegor256/rultor-remote'
   s.files = `git ls-files`.split($RS)
-  s.executables = s.files.grep(/^bin\//) { |f| File.basename(f) }
-  s.test_files = s.files.grep(/^(test|spec|features)\//)
+  s.executables = s.files.grep(%r{^bin\/}) { |f| File.basename(f) }
+  s.test_files = s.files.grep(%r{^(test|spec|features)\/})
   s.rdoc_options = ['--charset=UTF-8']
   s.extra_rdoc_files = %w(README.md LICENSE.txt)
   s.add_runtime_dependency 'rake', '~> 10.1'
