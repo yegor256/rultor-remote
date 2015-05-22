@@ -61,6 +61,7 @@ module Rultor
           exit -1
         fi
         cd #{Shellwords.escape(@dir)}
+        gpg --version
         gpg --symmetric --armor --verbose --batch --no-tty \
           --passphrase #{Shellwords.escape(@key)} \
           -o \"${enc}\" \"${file}\"
