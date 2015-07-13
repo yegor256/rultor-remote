@@ -1,15 +1,12 @@
 decrypt:
-  rubygems.yml: "repo/rubygems.yml.asc"
-
+  rubygems.yml: repo/rubygems.yml.asc
 assets:
-  s3cfg: "yegor256/home#assets/s3cfg"
-
+  s3cfg: yegor256/home#assets/s3cfg
 install: |
   sudo bundle install
   sudo apt-get install -y bcrypt
-
 release:
-  script: |
+  script: |-
     rake
     rm -rf *.gem
     sed -i "s/1\.0\.snapshot/${tag}/g" lib/rultor/version.rb
@@ -19,3 +16,6 @@ release:
     sudo gem install pdd
     pdd --source=$(pwd) --verbose --file=rultor-remote.xml
     s3cmd --no-progress put rultor-remote.xml --config=../s3cfg s3://pdd.teamed.io/rltor-remote.xml
+architect:
+- yegor256
+- alex-palevsky
