@@ -16,6 +16,8 @@ release:
     sudo gem install pdd
     pdd --source=$(pwd) --verbose --file=rultor-remote.xml
     s3cmd --no-progress put rultor-remote.xml --config=../s3cfg s3://pdd.teamed.io/rltor-remote.xml
+  commanders:
+  - yegor256
 architect:
 - yegor256
 - alex-palevsky
