@@ -29,3 +29,6 @@ merge:
   - krzyk
   - longtimeago
   - pinaf
+deploy:
+  commanders:
+  - yegor256
