@@ -46,7 +46,7 @@ We promise to review your changes same day and apply to
 the `master` branch, if they look correct.
 
 Please run Rake build before submitting a pull request (make sure you
-have [bundler](http://bundler.io/) installed installed):
+have [bundler](http://bundler.io/) installed):
 
 ```
 $ bundle install
