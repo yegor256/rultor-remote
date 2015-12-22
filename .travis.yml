@@ -1,10 +1,12 @@
 language: ruby
+rvm:
+  - 2.0.0
 cache: bundler
 branches:
   only:
     - master
 install:
-  - sudo apt-get update
+  - travis_retry sudo apt-get update -y
   - travis_retry sudo apt-get install -y bcrypt
   - travis_retry bundle install
 script:
