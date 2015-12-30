@@ -22,13 +22,5 @@ architect:
 - yegor256
 - alex-palevsky
 merge:
-  commanders:
-  - caarlos0
-  - carlosmiranda
-  - darkled
-  - dmzaytsev
-  - ggajos
-  - krzyk
-  - longtimeago
-  - pinaf
+  commanders: []
 deploy: {}
