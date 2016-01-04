@@ -91,7 +91,6 @@ module Rultor
       tmp = source + '.enc'
       system(
         [
-          "ECHO ON",
           "gpg --version",
           "gpg --symmetric --armor --verbose --batch --no-tty" \
             " --passphrase #{Shellwords.escape(@key)}" \
@@ -102,10 +101,10 @@ module Rultor
           "gpg --trust-model always" \
             " --output #{Shellwords.escape(target)}" \
             " --batch --no-tty --armor --encrypt --verbose" \
-            " --recipient 9AF0FA4C #{Shellwords.escape(tmp)}",
-          "DEL /q #{Shellwords.escape(tmp)}"
-        ].join(' ; ')
+            " --recipient 9AF0FA4C #{Shellwords.escape(tmp)}"
+        ].join(' && ')
       )
+      File.delete(tmp)
     end
   end
 end
