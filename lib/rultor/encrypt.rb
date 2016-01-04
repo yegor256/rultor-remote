@@ -91,10 +91,10 @@ module Rultor
     def windows
       system(
         "
-        file=#{Shellwords.escape(@file)}
-        enc=#{Shellwords.escape(@file + '.enc')}
-        asc=#{Shellwords.escape(@file + '.asc')}
-        cd #{Shellwords.escape(@dir)}
+        SET file=#{Shellwords.escape(@file)}
+        SET enc=#{Shellwords.escape(@file + '.enc')}
+        SET asc=#{Shellwords.escape(@file + '.asc')}
+        CD #{Shellwords.escape(@dir)}
         gpg --version
         gpg --symmetric --armor --verbose --batch --no-tty \
           --passphrase #{Shellwords.escape(@key)} \
@@ -105,7 +105,7 @@ module Rultor
           --output \"${asc}\" \
           --batch --no-tty --armor --encrypt --verbose \
           --recipient 9AF0FA4C \"${enc}\"
-        del /q \"${enc}\"
+        DEL /q \"${enc}\"
         "
       )
     end
