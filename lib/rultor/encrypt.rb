@@ -45,6 +45,18 @@ module Rultor
     end
 
     def run
+      if Gem.win_platform?
+        windows
+      else
+        unix
+      end
+      fail 'Failed to PGP encrypt' unless $CHILD_STATUS.exitstatus == 0
+      Rultor.log.info "#{@file} encrypted"
+    end
+
+    private
+
+    def unix
       system(
         "
         set -x
@@ -74,8 +86,28 @@ module Rultor
         rm -f \"${enc}\"
         "
       )
-      fail 'Failed to PGP encrypt' unless $CHILD_STATUS.exitstatus == 0
-      Rultor.log.info "#{@file} encrypted"
+    end
+
+    def windows
+      system(
+        "
+        file=#{Shellwords.escape(@file)}
+        enc=#{Shellwords.escape(@file + '.enc')}
+        asc=#{Shellwords.escape(@file + '.asc')}
+        cd #{Shellwords.escape(@dir)}
+        gpg --version
+        gpg --symmetric --armor --verbose --batch --no-tty \
+          --passphrase #{Shellwords.escape(@key)} \
+          -o \"${enc}\" \"${file}\"
+        gpg --keyserver hkp://pool.sks-keyservers.net \
+          --verbose --recv-keys 9AF0FA4C
+        gpg --trust-model always \
+          --output \"${asc}\" \
+          --batch --no-tty --armor --encrypt --verbose \
+          --recipient 9AF0FA4C \"${enc}\"
+        del /q \"${enc}\"
+        "
+      )
     end
   end
 end
