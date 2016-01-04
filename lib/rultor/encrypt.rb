@@ -104,7 +104,7 @@ module Rultor
             " --batch --no-tty --armor --encrypt --verbose" \
             " --recipient 9AF0FA4C #{Shellwords.escape(tmp)}",
           "DEL /q #{Shellwords.escape(tmp)}"
-        ].join(' && ')
+        ].join(' ; ')
       )
     end
   end
