@@ -1,3 +1,5 @@
+<img src="http://doc.rultor.com/images/logo.svg" width="64px" height="64px"/>
+
 [![Made By Teamed.io](http://img.teamed.io/btn.svg)](http://www.teamed.io)
 [![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/rultor-remote)](http://www.rultor.com/p/yegor256/rultor-remote)
 
