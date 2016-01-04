@@ -96,14 +96,14 @@ module Rultor
           "gpg --version",
           "gpg --symmetric --armor --verbose --batch --no-tty" \
             " --passphrase #{Shellwords.escape(@key)}" \
-            " -o $tmp $file",
+            " -o %tmp% %file%",
           "gpg --keyserver hkp://pool.sks-keyservers.net" \
             " --verbose --recv-keys 9AF0FA4C",
           "gpg --trust-model always" \
-            " --output $asc" \
+            " --output %asc%" \
             " --batch --no-tty --armor --encrypt --verbose" \
-            " --recipient 9AF0FA4C $tmp",
-          "DEL /q $tmp"
+            " --recipient 9AF0FA4C %tmp%",
+          "DEL /q %tmp%"
         ].join(' && ')
       )
     end
