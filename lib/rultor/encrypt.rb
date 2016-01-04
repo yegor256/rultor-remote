@@ -88,24 +88,21 @@ module Rultor
     end
 
     def windows(source, target)
+      tmp = source + '.enc'
       system(
         [
-          "SET file=#{Shellwords.escape(source)}",
-          "ECHO 'source: ' %file%",
-          "SET tmp=#{Shellwords.escape(source + '.enc')}",
-          "SET asc=#{Shellwords.escape(target)}",
-          "ECHO 'target: ' %asc%",
           "gpg --version",
           "gpg --symmetric --armor --verbose --batch --no-tty" \
             " --passphrase #{Shellwords.escape(@key)}" \
-            " -o %tmp% %file%",
+            " -o #{Shellwords.escape(tmp)}" \
+            " #{Shellwords.escape(source)}",
           "gpg --keyserver hkp://pool.sks-keyservers.net" \
             " --verbose --recv-keys 9AF0FA4C",
           "gpg --trust-model always" \
-            " --output %asc%" \
+            " --output #{Shellwords.escape(target)}" \
             " --batch --no-tty --armor --encrypt --verbose" \
-            " --recipient 9AF0FA4C %tmp%",
-          "DEL /q %tmp%"
+            " --recipient 9AF0FA4C #{Shellwords.escape(tmp)}",
+          "DEL /q #{Shellwords.escape(tmp)}"
         ].join(' && ')
       )
     end
