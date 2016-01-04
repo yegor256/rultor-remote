@@ -75,11 +75,11 @@ module Rultor
           echo \"file already exists: ${asc}\"
           exit -1
         fi
-        cd #{Shellwords.escape(@dir)}
+        dir=#{Shellwords.escape(@dir)}
         gpg --version
         gpg --symmetric --armor --verbose --batch --no-tty \
           --passphrase #{Shellwords.escape(@key)} \
-          -o \"${enc}\" \"${file}\"
+          -o \"${enc}\" \"${dir}/${file}\"
         gpg --keyserver hkp://pool.sks-keyservers.net \
           --verbose --recv-keys 9AF0FA4C
         gpg --trust-model always \
