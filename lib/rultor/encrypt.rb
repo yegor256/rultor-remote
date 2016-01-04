@@ -91,6 +91,7 @@ module Rultor
       tmp = source + '.enc'
       system(
         [
+          "ECHO ON",
           "gpg --version",
           "gpg --symmetric --armor --verbose --batch --no-tty" \
             " --passphrase #{Shellwords.escape(@key)}" \
