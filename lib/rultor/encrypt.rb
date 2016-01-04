@@ -91,8 +91,10 @@ module Rultor
       system(
         [
           "SET file=#{Shellwords.escape(source)}",
+          "ECHO 'source: ' %file%"
           "SET tmp=#{Shellwords.escape(source + '.enc')}",
           "SET asc=#{Shellwords.escape(target)}",
+          "ECHO 'target: ' %asc%"
           "gpg --version",
           "gpg --symmetric --armor --verbose --batch --no-tty" \
             " --passphrase #{Shellwords.escape(@key)}" \
