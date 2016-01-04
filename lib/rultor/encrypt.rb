@@ -91,16 +91,16 @@ module Rultor
       tmp = source + '.enc'
       system(
         [
-          "gpg --version",
-          "gpg --symmetric --armor --verbose --batch --no-tty" \
+          'gpg --version',
+          'gpg --symmetric --armor --verbose --batch --no-tty' \
             " --passphrase #{Shellwords.escape(@key)}" \
             " -o #{Shellwords.escape(tmp)}" \
             " #{Shellwords.escape(source)}",
-          "gpg --keyserver hkp://pool.sks-keyservers.net" \
-            " --verbose --recv-keys 9AF0FA4C",
-          "gpg --trust-model always" \
+          'gpg --keyserver hkp://pool.sks-keyservers.net' \
+            ' --verbose --recv-keys 9AF0FA4C',
+          'gpg --trust-model always' \
             " --output #{Shellwords.escape(target)}" \
-            " --batch --no-tty --armor --encrypt --verbose" \
+            ' --batch --no-tty --armor --encrypt --verbose' \
             " --recipient 9AF0FA4C #{Shellwords.escape(tmp)}"
         ].join(' && ')
       )

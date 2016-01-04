@@ -12,7 +12,6 @@ Feature: Gem Package
     """
     When I run bash with
     """
-    set -e
     cd rultor
     gem build rultor.gemspec
     gem specification --ruby rultor-*.gem > ../spec.rb
