@@ -89,22 +89,22 @@ module Rultor
 
     def windows(source, target)
       system(
-        "
-        SET file=#{Shellwords.escape(source)}
-        SET tmp=#{Shellwords.escape(source + '.enc')}
-        SET asc=#{Shellwords.escape(target)}
-        gpg --version
-        gpg --symmetric --armor --verbose --batch --no-tty \
-          --passphrase #{Shellwords.escape(@key)} \
-          -o \"${tmp}\" \"${file}\"
-        gpg --keyserver hkp://pool.sks-keyservers.net \
-          --verbose --recv-keys 9AF0FA4C
-        gpg --trust-model always \
-          --output \"${asc}\" \
-          --batch --no-tty --armor --encrypt --verbose \
-          --recipient 9AF0FA4C \"${tmp}\"
-        DEL /q \"${tmp}\"
-        "
+        [
+          "SET file=#{Shellwords.escape(source)}",
+          "SET tmp=#{Shellwords.escape(source + '.enc')}",
+          "SET asc=#{Shellwords.escape(target)}",
+          "gpg --version",
+          "gpg --symmetric --armor --verbose --batch --no-tty" \
+            " --passphrase #{Shellwords.escape(@key)}" \
+            " -o \"${tmp}\" \"${file}\"",
+          "gpg --keyserver hkp://pool.sks-keyservers.net" \
+            " --verbose --recv-keys 9AF0FA4C",
+          "gpg --trust-model always \
+            " --output \"${asc}\"" \
+            " --batch --no-tty --armor --encrypt --verbose" \
+            " --recipient 9AF0FA4C \"${tmp}\"",
+          "DEL /q \"${tmp}\""
+        ].join(' && ')
       )
     end
   end
