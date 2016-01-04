@@ -45,70 +45,65 @@ module Rultor
     end
 
     def run
+      source = File.join(@dir, @file)
       target = File.join(@dir, @file + '.asc')
       if Gem.win_platform?
-        windows(target)
+        windows(source, target)
       else
-        unix(target)
+        unix(source, target)
       end
-      fail 'Failed to PGP encrypt' unless $CHILD_STATUS.exitstatus == 0
-      Rultor.log.info "#{@file} (#{File.size(File.join(@dir, @file))})" \
-        " encrypted into #{target}" \
+      fail 'PGP encryption failed' unless $CHILD_STATUS.exitstatus == 0
+      Rultor.log.info "#{@file} encrypted into #{target}" \
         " (#{File.size(target)} bytes)"
     end
 
     private
 
-    def unix(target)
+    def unix(source, target)
       system(
         "
         set -x
         set -e
-        file=#{Shellwords.escape(@file)}
-        enc=#{Shellwords.escape(@file + '.enc')}
-        if [ -e \"${enc}\" ]; then
-          echo \"file already exists: ${enc}\"
-          exit -1
-        fi
+        file=#{Shellwords.escape(source)}
         asc=#{Shellwords.escape(target)}
         if [ -e \"${asc}\" ]; then
           echo \"file already exists: ${asc}\"
           exit -1
         fi
-        cd #{Shellwords.escape(@dir)}
+        tmp=$(mktemp)
+        rm -f \"${tmp}\"
         gpg --version
         gpg --symmetric --armor --verbose --batch --no-tty \
           --passphrase #{Shellwords.escape(@key)} \
-          -o \"${enc}\" \"${file}\"
+          -o \"${tmp}\" \"${file}\"
         gpg --keyserver hkp://pool.sks-keyservers.net \
           --verbose --recv-keys 9AF0FA4C
         gpg --trust-model always \
           --output \"${asc}\" \
           --batch --no-tty --armor --encrypt --verbose \
-          --recipient 9AF0FA4C \"${enc}\"
-        rm -f \"${enc}\"
+          --recipient 9AF0FA4C \"${tmp}\"
+        rm -f \"${tmp}\"
         "
       )
     end
 
-    def windows(target)
+    def windows(source, target)
       system(
         "
-        SET file=#{Shellwords.escape(@file)}
-        SET enc=#{Shellwords.escape(@file + '.enc')}
+        SET file=#{Shellwords.escape(source)}
+        SET tmp=#{Shellwords.escape(source + '.enc')}
         SET asc=#{Shellwords.escape(target)}
-        CD #{Shellwords.escape(@dir)}
         gpg --version
         gpg --symmetric --armor --verbose --batch --no-tty \
           --passphrase #{Shellwords.escape(@key)} \
-          -o \"${enc}\" \"${file}\"
+          -o \"${tmp}\" \"${file}\"
         gpg --keyserver hkp://pool.sks-keyservers.net \
           --verbose --recv-keys 9AF0FA4C
         gpg --trust-model always \
           --output \"${asc}\" \
           --batch --no-tty --armor --encrypt --verbose \
-          --recipient 9AF0FA4C \"${enc}\"
-        DEL /q \"${enc}\"
+          --recipient 9AF0FA4C \"${tmp}\"
+        DEL /q \"${tmp}\"
         "
       )
     end
