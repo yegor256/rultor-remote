@@ -45,18 +45,21 @@ module Rultor
     end
 
     def run
+      target = File.join(@dir, @file + '.asc')
       if Gem.win_platform?
-        windows
+        windows(target)
       else
-        unix
+        unix(target)
       end
       fail 'Failed to PGP encrypt' unless $CHILD_STATUS.exitstatus == 0
-      Rultor.log.info "#{@file} encrypted"
+      Rultor.log.info "#{@file} (#{File.size(File.join(@dir, @file))})" \
+        " encrypted into #{target}" \
+        " (#{File.size(target)} bytes)"
     end
 
     private
 
-    def unix
+    def unix(target)
       system(
         "
         set -x
@@ -67,7 +70,7 @@ module Rultor
           echo \"file already exists: ${enc}\"
           exit -1
         fi
-        asc=#{Shellwords.escape(@file + '.asc')}
+        asc=#{Shellwords.escape(target)}
         if [ -e \"${asc}\" ]; then
           echo \"file already exists: ${asc}\"
           exit -1
@@ -88,12 +91,12 @@ module Rultor
       )
     end
 
-    def windows
+    def windows(target)
       system(
         "
         SET file=#{Shellwords.escape(@file)}
         SET enc=#{Shellwords.escape(@file + '.enc')}
-        SET asc=#{Shellwords.escape(@file + '.asc')}
+        SET asc=#{Shellwords.escape(target)}
         CD #{Shellwords.escape(@dir)}
         gpg --version
         gpg --symmetric --armor --verbose --batch --no-tty \
