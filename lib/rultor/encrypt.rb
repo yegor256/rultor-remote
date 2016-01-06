@@ -46,7 +46,7 @@ module Rultor
 
     def run
       source = File.join(@dir, @file)
-      target = File.join(@dir, @file + '.asc')
+      target = @file + '.asc'
       if Gem.win_platform?
         windows(source, target)
       else
