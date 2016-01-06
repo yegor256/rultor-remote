@@ -40,24 +40,26 @@ require 'tmpdir'
 class TestEncrypt < Minitest::Test
   def test_basic_encryption
     Dir.mktmpdir 'test' do |dir|
-      Dir.chdir dir
+      Dir.chdir(dir)
       file = 'secret.txt'
       File.write(file, 'hello, world!')
       Rultor::Encrypt.new('test', file).run
       asc = 'secret.txt.asc'
       assert_equal true, File.exist?(asc)
+      Dir.chdir("..")
     end
   end
 
   def test_dir_encryption
     Dir.mktmpdir 'test' do |dir|
-      Dir.chdir dir
+      Dir.chdir(dir)
       Dir.mkdir('dir2')
       file = File.join('dir2', 'secret.txt')
       File.write(file, 'hello, world!')
       Rultor::Encrypt.new('test', file).run
       asc = 'secret.txt.asc'
       assert_equal true, File.exist?(asc)
+      Dir.chdir("..")
     end
   end
 end
