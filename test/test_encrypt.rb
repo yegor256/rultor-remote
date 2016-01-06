@@ -46,7 +46,7 @@ class TestEncrypt < Minitest::Test
       Rultor::Encrypt.new('test', file).run
       asc = 'secret.txt.asc'
       assert_equal true, File.exist?(asc)
-      Dir.chdir("..")
+      Dir.chdir('..')
     end
   end
 
@@ -59,7 +59,7 @@ class TestEncrypt < Minitest::Test
       Rultor::Encrypt.new('test', file).run
       asc = 'secret.txt.asc'
       assert_equal true, File.exist?(asc)
-      Dir.chdir("..")
+      Dir.chdir('..')
     end
   end
 end
