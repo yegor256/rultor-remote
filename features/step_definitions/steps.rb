@@ -51,7 +51,7 @@ Given(/^I have a "([^"]*)" file with content:$/) do |file, text|
   end
 end
 
-When(%r{^I run bin\/rultor with "([^"]*)"$}) do |arg|
+When(/^I run bin\/rultor with "([^"]*)"$/) do |arg|
   home = File.join(File.dirname(__FILE__), '../..')
   @stdout = `ruby -I#{home}/lib #{home}/bin/rultor #{arg} 2>&1`
   @exitstatus = $CHILD_STATUS.exitstatus
