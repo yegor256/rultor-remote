@@ -16,6 +16,9 @@ build_script:
   - bundle install
 test_script:
   - rake
+  - gem build rultor.gemspec
+  - gem install rultor-1.0.snapshot.gem
+  - rultor encrypt --project yegor256/rultor LICENSE.txt
 cache:
   - C:\Ruby200\bin -> rultor.gemspec
   - C:\Ruby200\lib\ruby\gems\2.0.0 -> rultor.gemspec
