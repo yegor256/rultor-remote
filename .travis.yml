@@ -11,4 +11,7 @@ install:
   - travis_retry bundle install
 script:
   - rake
+  - gem build rultor.gemspec
+  - gem install rultor-1.0.snapshot.gem
+  - rultor encrypt --project yegor256/rultor LICENSE.txt
 
