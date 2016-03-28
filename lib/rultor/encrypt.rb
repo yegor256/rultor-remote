@@ -70,7 +70,7 @@ module Rultor
           echo \"file already exists: ${asc}\"
           exit -1
         fi
-        tmp=$(mktemp)
+        tmp=$(mktemp -t rultor-XXXX)
         rm -f \"${tmp}\"
         gpg --version
         gpg --symmetric --armor --verbose --batch --no-tty \
