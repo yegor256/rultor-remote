@@ -2,6 +2,7 @@
 
 [![Made By Teamed.io](http://img.teamed.io/btn.svg)](http://www.teamed.io)
 [![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/rultor-remote)](http://www.rultor.com/p/yegor256/rultor-remote)
+[![We recommend RubyMine](http://img.teamed.io/rubymine-recommend.svg)](https://www.jetbrains.com/ruby/)
 
 [![Build Status](https://travis-ci.org/yegor256/rultor-remote.svg)](https://travis-ci.org/yegor256/rultor-remote)
 [![Build status](https://ci.appveyor.com/api/projects/status/qinkj0i7h6ralg7w?svg=true)](https://ci.appveyor.com/project/yegor256/rultor-remote)
