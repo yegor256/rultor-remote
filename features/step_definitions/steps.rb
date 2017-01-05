@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# Copyright (c) 2009-2014, rultor.com
+# Copyright (c) 2009-2017, rultor.com
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
