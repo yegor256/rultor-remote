@@ -45,7 +45,7 @@ Gem::Specification.new do |s|
   s.summary = 'Rultor.com Remote Control'
   s.description = 'Command line remote control of www.rultor.com'
   s.authors = ['Yegor Bugayenko']
-  s.email = 'yegor@teamed.io'
+  s.email = 'yegor256@gmail.com'
   s.homepage = 'http://github.com/yegor256/rultor-remote'
   s.files = `git ls-files`.split($RS)
   s.executables = s.files.grep(/^bin\//) { |f| File.basename(f) }

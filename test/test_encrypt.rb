@@ -34,7 +34,7 @@ require 'rultor/encrypt'
 require 'tmpdir'
 
 # Rultor encryption.
-# Author:: Yegor Bugayenko (yegor@teamed.io)
+# Author:: Yegor Bugayenko (yegor256@gmail.com)
 # Copyright:: Copyright (c) 2014 Yegor Bugayenko
 # License:: BSD
 class TestEncrypt < Minitest::Test

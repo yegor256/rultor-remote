@@ -29,7 +29,7 @@
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # Rultor main module.
-# Author:: Yegor Bugayenko (yegor@teamed.io)
+# Author:: Yegor Bugayenko (yegor256@gmail.com)
 # Copyright:: Copyright (c) 2014 Yegor Bugayenko
 # License:: BSD
 module Rultor
