@@ -3,8 +3,9 @@ decrypt:
 assets:
   s3cfg: zerocracy/home#assets/s3cfg
 install: |
-  sudo bundle install
   sudo apt-get install -y bcrypt
+  bundle install
+  sudo gem install pdd
 release:
   script: |-
     rake
@@ -13,9 +14,7 @@ release:
     gem build rultor.gemspec
     chmod 0600 ../rubygems.yml
     gem push *.gem --config-file ../rubygems.yml
-    sudo gem install pdd
-    pdd --source=$(pwd) --verbose --file=rultor-remote.xml
-    s3cmd --no-progress put rultor-remote.xml --config=../s3cfg s3://pdd.teamed.io/rltor-remote.xml
+    pdd --source=$(pwd) --verbose --file=/dev/null
   commanders:
   - yegor256
 architect:
