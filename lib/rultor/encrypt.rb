@@ -76,7 +76,7 @@ module Rultor
         gpg --symmetric --armor --verbose --batch --no-tty \
           --passphrase #{Shellwords.escape(@key)} \
           -o \"${tmp}\" \"${file}\"
-        gpg --keyserver hkp://pool.sks-keyservers.net \
+        gpg --keyserver hkp://ipv4.pool.sks-keyservers.net \
           --verbose --recv-keys 9AF0FA4C
         gpg --trust-model always \
           --output \"${asc}\" \
@@ -96,7 +96,7 @@ module Rultor
             " --passphrase #{Shellwords.escape(@key)}" \
             " -o #{Shellwords.escape(tmp)}" \
             " #{Shellwords.escape(source)}",
-          'gpg --keyserver hkp://pool.sks-keyservers.net' \
+          'gpg --keyserver hkp://ipv4.pool.sks-keyservers.net' \
             ' --verbose --recv-keys 9AF0FA4C',
           'gpg --trust-model always' \
             " --output #{Shellwords.escape(target)}" \
