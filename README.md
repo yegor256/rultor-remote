@@ -2,7 +2,7 @@
 
 [![Managed by Zerocracy](http://www.zerocracy.com/badge.svg)](http://www.zerocracy.com)
 [![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/rultor-remote)](http://www.rultor.com/p/yegor256/rultor-remote)
-[![We recommend RubyMine](http://img.teamed.io/rubymine-recommend.svg)](https://www.jetbrains.com/ruby/)
+[![We recommend RubyMine](http://www.elegantobjects.org/rubymine.svg)](https://www.jetbrains.com/ruby/)
 
 [![Build Status](https://travis-ci.org/yegor256/rultor-remote.svg)](https://travis-ci.org/yegor256/rultor-remote)
 [![PDD status](http://www.0pdd.com/svg?name=yegor256/rultor-remote)](http://www.0pdd.com/p?name=yegor256/rultor-remote)
