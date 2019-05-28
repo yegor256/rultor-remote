@@ -1,7 +1,7 @@
 decrypt:
   rubygems.yml: repo/rubygems.yml.asc
 assets:
-  s3cfg: zerocracy/home#assets/s3cfg
+  s3cfg: yegor256/home#assets/s3cfg
 install: |
   sudo apt-get install -y bcrypt
   bundle install
