@@ -8,7 +8,7 @@ install: |
   sudo gem install pdd
 release:
   script: |-
-    rake
+    bundle exec rake
     rm -rf *.gem
     sed -i "s/1\.0\.snapshot/${tag}/g" lib/rultor/version.rb
     gem build rultor.gemspec
