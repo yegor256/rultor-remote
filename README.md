@@ -15,6 +15,8 @@
 [![Hits-of-Code](https://hitsofcode.com/github/yegor256/rultor-remote)](https://hitsofcode.com/view/github/yegor256/rultor-remote)
 [![Availability at SixNines](https://www.sixnines.io/b/efd7)](https://www.sixnines.io/h/efd7)
 
+Need help online? Try our [Telegram group](https://t.me/zerocracy).
+
 Install it first:
 
 ```bash
