@@ -9,8 +9,11 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/qinkj0i7h6ralg7w?svg=true)](https://ci.appveyor.com/project/yegor256/rultor-remote)
 [![PDD status](http://www.0pdd.com/svg?name=yegor256/rultor-remote)](http://www.0pdd.com/p?name=yegor256/rultor-remote)
 [![Gem Version](https://badge.fury.io/rb/rultor.svg)](http://badge.fury.io/rb/rultor)
-[![Code Climate](http://img.shields.io/codeclimate/github/yegor256/rultor-remote.svg)](https://codeclimate.com/github/yegor256/rultor-remote)
+[![Maintainability](https://api.codeclimate.com/v1/badges/12ac6688bb3135a835dc/maintainability)](https://codeclimate.com/github/yegor256/rultor-remote/maintainability)
 [![Coverage Status](https://img.shields.io/coveralls/yegor256/rultor-remote.svg)](https://coveralls.io/r/yegor256/rultor-remote)
+
+[![Hits-of-Code](https://hitsofcode.com/github/yegor256/rultor-remote)](https://hitsofcode.com/view/github/yegor256/rultor-remote)
+[![Availability at SixNines](https://www.sixnines.io/b/efd7)](https://www.sixnines.io/h/efd7)
 
 Install it first:
 
