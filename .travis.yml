@@ -10,7 +10,7 @@ install:
   - travis_retry sudo apt-get install -y bcrypt
   - travis_retry bundle install
 script:
-  - rake
+  - bundle exec rake
   - gem build rultor.gemspec
   - gem install rultor-1.0.snapshot.gem
   - rultor encrypt --project yegor256/rultor LICENSE.txt
