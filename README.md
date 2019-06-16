@@ -1,14 +1,14 @@
 <img src="http://doc.rultor.com/images/logo.svg" width="64px" height="64px"/>
 
-[![Managed by Zerocracy](http://www.zerocracy.com/badge.svg)](http://www.zerocracy.com)
+[![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
+[![Managed by Zerocracy](https://www.0crat.com/badge/C3SAYRPH9.svg)](https://www.0crat.com/p/C3SAYRPH9)
 [![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/rultor-remote)](http://www.rultor.com/p/yegor256/rultor-remote)
 [![We recommend RubyMine](https://www.elegantobjects.org/rubymine.svg)](https://www.jetbrains.com/ruby/)
 
 [![Build Status](https://travis-ci.org/yegor256/rultor-remote.svg)](https://travis-ci.org/yegor256/rultor-remote)
-[![PDD status](http://www.0pdd.com/svg?name=yegor256/rultor-remote)](http://www.0pdd.com/p?name=yegor256/rultor-remote)
 [![Build status](https://ci.appveyor.com/api/projects/status/qinkj0i7h6ralg7w?svg=true)](https://ci.appveyor.com/project/yegor256/rultor-remote)
+[![PDD status](http://www.0pdd.com/svg?name=yegor256/rultor-remote)](http://www.0pdd.com/p?name=yegor256/rultor-remote)
 [![Gem Version](https://badge.fury.io/rb/rultor.svg)](http://badge.fury.io/rb/rultor)
-[![Dependency Status](https://gemnasium.com/yegor256/rultor-remote.svg)](https://gemnasium.com/yegor256/rultor-remote)
 [![Code Climate](http://img.shields.io/codeclimate/github/yegor256/rultor-remote.svg)](https://codeclimate.com/github/yegor256/rultor-remote)
 [![Coverage Status](https://img.shields.io/coveralls/yegor256/rultor-remote.svg)](https://coveralls.io/r/yegor256/rultor-remote)
 
@@ -39,11 +39,6 @@ Make sure you have [gpg](https://www.gnupg.org/documentation/manpage.html) and
 [bcrypt](http://bcrypt.sourceforge.net/) installed on your machine
 (only Unix or Mac OS at the moment).
 
-## Questions?
-
-If you have any questions about the tool, or something doesn't work as expected,
-please [submit an issue here](https://github.com/yegor256/rultor-remote/issues/new).
-
 ## How to contribute?
 
 Fork the repository, make changes, submit a pull request.
@@ -55,7 +50,7 @@ have [bundler](http://bundler.io/) installed):
 
 ```
 $ bundle install
-$ rake
+$ bundle exec rake
 ```
 
 Make sure you're using Ruby 2.0+.
