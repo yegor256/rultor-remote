@@ -5,7 +5,7 @@ assets:
 install: |
   sudo apt-get install -y bcrypt
   bundle install
-  sudo gem install pdd
+  sudo gem install pdd -v 0.20.5
 release:
   script: |-
     bundle exec rake
