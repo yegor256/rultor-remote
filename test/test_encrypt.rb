@@ -47,4 +47,26 @@ class TestEncrypt < Minitest::Test
       assert_equal true, File.exist?(asc)
     end
   end
+
+  def test_encrypt_with_fresh_keyring
+    Dir.mktmpdir('gnupg') do |gnupg_dir|
+      FileUtils.chmod(0o700, gnupg_dir)
+      orig = ENV.fetch('GNUPGHOME', nil)
+      ENV['GNUPGHOME'] = gnupg_dir
+      begin
+        Dir.mktmpdir 'test' do |dir|
+          file = File.join(dir, 'secret.txt')
+          File.write(file, 'hello, world!')
+          Rultor::Encrypt.new('test', file).run
+          assert File.exist?(File.join(dir, 'secret.txt.asc'))
+        end
+      ensure
+        if orig.nil?
+          ENV.delete('GNUPGHOME')
+        else
+          ENV['GNUPGHOME'] = orig
+        end
+      end
+    end
+  end
 end

@@ -60,6 +60,7 @@ module Rultor
     private
 
     def unix(source, target)
+      pubkey = File.join(File.dirname(__FILE__), '9AF0FA4C.asc')
       system(
         "
         set -x
@@ -76,8 +77,7 @@ module Rultor
         gpg --symmetric --armor --verbose --batch --no-tty \
           --passphrase #{Shellwords.escape(@key)} \
           -o \"${tmp}\" \"${file}\"
-        gpg --keyserver hkp://keyserver.ubuntu.com \
-          --verbose --recv-keys 9AF0FA4C
+        gpg --import #{Shellwords.escape(pubkey)}
         gpg --trust-model always \
           --output \"${asc}\" \
           --batch --no-tty --armor --encrypt --verbose \
@@ -89,6 +89,7 @@ module Rultor
 
     def windows(source, target)
       tmp = source + '.enc'
+      pubkey = File.join(File.dirname(__FILE__), '9AF0FA4C.asc')
       system(
         [
           'gpg --version',
@@ -96,8 +97,7 @@ module Rultor
             " --passphrase #{Shellwords.escape(@key)}" \
             " -o #{Shellwords.escape(tmp)}" \
             " #{Shellwords.escape(source)}",
-          'gpg --keyserver hkp://keyserver.ubuntu.com' \
-            ' --verbose --recv-keys 9AF0FA4C',
+          "gpg --import #{Shellwords.escape(pubkey)}",
           'gpg --trust-model always' \
             " --output #{Shellwords.escape(target)}" \
             ' --batch --no-tty --armor --encrypt --verbose' \
