@@ -35,6 +35,7 @@ require 'rultor'
 require 'slop'
 require 'rultor/version'
 require 'rultor/encrypt'
+require 'rultor/deploy'
 
 Slop.parse(ARGV, strict: true, help: true) do
   banner "Usage (#{Rultor::VERSION}): rultor command [options]"
@@ -46,6 +47,14 @@ Slop.parse(ARGV, strict: true, help: true) do
     on :p=, :project, 'Project name', required: true
     run do |opts, args|
       Rultor::Encrypt.new(opts[:project], args.first).run
+    end
+  end
+
+  command 'deploy' do
+    description 'Starts deploy process'
+    on :deploy
+    run do |opts, args|
+      Rultor::Deploy.run
     end
   end
 end
